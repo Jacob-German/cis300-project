@@ -1,44 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Inventory | The Vault</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/styles.css">
+<meta charset="UTF-8">
+<title>Inventory | The Vault</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Browse the Vault Dweller's inventory including weapons, aid items, and survival gear from the Fallout wasteland.">
+<meta name="keywords" content="Fallout inventory, Stimpak, RadAway, weapons, Vault Dweller, wasteland gear">
+<link rel="stylesheet" href="styles.css">
+<style>
+.inv-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 14px;
+  background: rgba(0,0,0,.3);
+}
+.inv-item img {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  background: rgba(0,0,0,.5);
+  flex-shrink: 0;
+  padding: 4px;
+}
+.inv-item-info h4 {
+  margin: 0 0 6px;
+  color: var(--primary);
+  font-size: .97rem;
+  letter-spacing: .04em;
+}
+.inv-item-info p {
+  margin: 0;
+  font-size: .9rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.inv-item-info .tag {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: .78rem;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 2px 7px;
+  color: var(--secondary);
+}
+</style>
 </head>
-
 <body>
 <div class="wrapper">
 <div class="frame">
 
 <header class="header">
-    <div class="brand">
-        <h1>THE VAULT</h1>
-        <h2>A Fallout Fanpage</h2>
-    </div>
-
-    <nav class="nav">
-        <a href="index.html">HOME</a>
-        <a href="inv.html">INV</a>
-        <a href="data.html">DATA</a>
-        <a href="map.html">MAP</a>
-        <a href="radio.html">RADIO</a>
-    </nav>
+<div class="brand">
+<h1>THE VAULT</h1>
+<h2>A Fallout Fanpage</h2>
+</div>
+<nav class="nav">
+<a href="index.html">HOME</a>
+<a href="inv.html" aria-current="page">INV</a>
+<a href="data.html">DATA</a>
+<a href="map.html">MAP</a>
+<a href="radio.html">RADIO</a>
+</nav>
 </header>
 
 <main class="main">
-    <section class="panel"></section>
-    <aside class="panel"></aside>
+<section class="panel">
+<h3>Inventory</h3>
+<p style="margin-bottom:16px;">Every Vault Dweller needs a well-stocked inventory to survive the Capital Wasteland. Below is the current loadout — weapons, aid items, and apparel ready for the dangers lurking beyond the Vault door. Manage your carry weight carefully; every pound counts when sprinting from a Deathclaw.</p>
+
+<div class="inv-item">
+  <img src="Fallout4-Stimpak.webp" alt="Stimpak">
+  <div class="inv-item-info">
+    <h4>Stimpak &times;12</h4>
+    <p>A pre-packaged syringe containing a mixture of healing chems. Essential for field medicine — injects directly into the bloodstream to accelerate cellular regeneration and stop bleeding.</p>
+    <span class="tag">AID</span>
+  </div>
+</div>
+
+<div class="inv-item">
+  <img src="Huntingriflefo4.webp" alt="Hunting Rifle">
+  <div class="inv-item-info">
+    <h4>Hunting Rifle</h4>
+    <p>A reliable bolt-action .308 caliber rifle. Effective at long range against human enemies and moderate-threat creatures. Standard issue for wasteland scouts and Minutemen rangers.</p>
+    <span class="tag">WEAPON</span> <span class="tag">.308 CAL</span>
+  </div>
+</div>
+
+<div class="inv-item">
+  <img src="Nuka-Cola-Item-Fortnite.webp" alt="Nuka-Cola">
+  <div class="inv-item-info">
+    <h4>Nuka-Cola &times;4</h4>
+    <p>The flavor you've been waiting for — since before the war. Restores a small amount of HP but adds minor radiation. A staple of pre-war American culture and still the most popular beverage in the wasteland.</p>
+    <span class="tag">AID</span> <span class="tag">+RADS</span>
+  </div>
+</div>
+
+<div class="inv-item">
+  <img src="Winterized_N99_10mm_pistol.webp" alt="10mm Pistol">
+  <div class="inv-item-info">
+    <h4>10mm Pistol (Winterized)</h4>
+    <p>A military-grade 10mm semi-automatic sidearm with a winterized finish for cold-weather operations. Reliable close-quarters backup weapon with a 12-round magazine. Standard issue in many Vault security teams.</p>
+    <span class="tag">WEAPON</span> <span class="tag">10MM</span>
+  </div>
+</div>
+
+</section>
+
+<aside class="panel">
+<h3>Carry Weight</h3>
+<p>75 / 120 lbs</p>
+<p style="margin-top:10px;font-size:.9em;color:var(--muted);">Exceeding max carry weight will slow movement speed significantly.</p>
+<h3 style="margin-top:16px;">Item Condition</h3>
+<p>Hunting Rifle: <strong style="color:#39FF14;">GOOD</strong></p>
+<p style="margin-top:6px;">10mm Pistol: <strong style="color:#ffcc00;">FAIR</strong></p>
+<h3 style="margin-top:16px;">Ammo</h3>
+<p style="font-size:.9em;">.308 Rounds: 47</p>
+<p style="font-size:.9em;">10mm Rounds: 120</p>
+<h3 style="margin-top:16px;">Stimpaks &times;12</h3>
+<p style="font-size:.9em;color:var(--muted);">Primary healing supply. Use in the field to recover HP quickly.</p>
+
+</aside>
 </main>
 
 <footer class="footer">
-    <div>© 2026 The Vault</div>
-    <div>
-        <a href="#">Contact</a> |
-        <a href="#">Privacy Policy</a> |
-        <a href="#">Terms of Use</a>
-    </div>
-    <div>Jacob German</div>
+<div>&copy; 2026 The Vault</div>
+<div>Jacob German</div>
 </footer>
 
 </div>

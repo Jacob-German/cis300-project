@@ -1,44 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Data | The Vault</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/styles.css">
+<meta charset="UTF-8">
+<title>Data | The Vault</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Vault data logs and terminal records from across the wasteland, including location intel, threat assessments, and resource reports.">
+<meta name="keywords" content="Fallout data, Vault logs, wasteland intel, terminal records, threat assessment">
+<link rel="stylesheet" href="styles.css">
+<style>
+.data-table { width:100%; border-collapse:collapse; margin-top:16px; font-size:.92rem; }
+.data-table th { background:rgba(57,255,20,.15); color:var(--primary); border:2px solid var(--border); padding:10px 12px; text-align:left; }
+.data-table td { border:2px solid var(--border); padding:9px 12px; }
+.data-table tr:nth-child(even) { background:rgba(57,255,20,.04); }
+.form-group { display:flex; flex-direction:column; gap:4px; margin-bottom:12px; }
+.form-label { color:var(--primary); font-size:.9rem; letter-spacing:.04em; }
+.form-input {
+  background:rgba(0,0,0,.5); border:2px solid var(--border); border-radius:8px;
+  padding:9px 12px; color:var(--text); font-family:inherit; font-size:.95rem;
+}
+.form-input:focus { outline:none; border-color:var(--primary); }
+select.form-input option { background:#0B0F0C; }
+.submit-btn {
+  background:rgba(57,255,20,.1); border:2px solid var(--border); border-radius:8px;
+  color:var(--primary); padding:10px 22px; font-family:inherit; font-size:.95rem;
+  font-weight:700; letter-spacing:.06em; cursor:pointer;
+}
+.submit-btn:hover { background:rgba(57,255,20,.2); }
+</style>
 </head>
-
 <body>
 <div class="wrapper">
 <div class="frame">
 
 <header class="header">
-    <div class="brand">
-        <h1>THE VAULT</h1>
-        <h2>A Fallout Fanpage</h2>
-    </div>
-
-    <nav class="nav">
-        <a href="index.html">HOME</a>
-        <a href="inv.html">INV</a>
-        <a href="data.html">DATA</a>
-        <a href="map.html">MAP</a>
-        <a href="radio.html">RADIO</a>
-    </nav>
+<div class="brand">
+<h1>THE VAULT</h1>
+<h2>A Fallout Fanpage</h2>
+</div>
+<nav class="nav">
+<a href="index.html">HOME</a>
+<a href="inv.html">INV</a>
+<a href="data.html" aria-current="page">DATA</a>
+<a href="map.html">MAP</a>
+<a href="radio.html">RADIO</a>
+</nav>
 </header>
 
 <main class="main">
-    <section class="panel"></section>
-    <aside class="panel"></aside>
+<section class="panel">
+<h3>Vault Data Logs</h3>
+<p>Archived terminal records and wasteland intelligence gathered by scouts and automated sensors across the Capital Wasteland. All data is classified at Overseer clearance level. Review threat assessments before departing the Vault.</p>
+
+<table class="data-table">
+<thead>
+<tr>
+<th>Location</th>
+<th>Threat Level</th>
+<th>Resources Available</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vault 111</td>
+<td style="color:#39FF14;">LOW</td>
+<td>Cryo pods, Med-X, basic rations</td>
+</tr>
+<tr>
+<td>Diamond City</td>
+<td style="color:#ffcc00;">MODERATE</td>
+<td>Traders, food, ammo, medical supplies</td>
+</tr>
+<tr>
+<td>Glowing Sea</td>
+<td style="color:#ff4444;">EXTREME</td>
+<td>Rare components, high radiation</td>
+</tr>
+<tr>
+<td>Sanctuary Hills</td>
+<td style="color:#ffcc00;">MODERATE</td>
+<td>Settlement materials, crops, water</td>
+</tr>
+</tbody>
+</table>
+
+<h3 style="margin-top:24px;">Submit a Field Report</h3>
+<p style="font-size:.9em;color:var(--muted);margin-bottom:16px;">Submit wasteland intelligence to the Vault database. All reports are reviewed by the Overseer.</p>
+
+<form action="#" method="post">
+<div class="form-group">
+  <label class="form-label" for="scout-name">SCOUT NAME</label>
+  <input class="form-input" type="text" id="scout-name" name="scout-name" placeholder="Enter your Vault ID" required>
+</div>
+<div class="form-group">
+  <label class="form-label" for="location-name">LOCATION NAME</label>
+  <input class="form-input" type="text" id="location-name" name="location-name" placeholder="e.g. Corvega Assembly Plant" required>
+</div>
+<div class="form-group">
+  <label class="form-label" for="threat">THREAT LEVEL</label>
+  <select class="form-input" id="threat" name="threat">
+    <option value="">-- Select threat level --</option>
+    <option value="low">Low — Minor enemies or clear</option>
+    <option value="moderate">Moderate — Raiders or Ghouls present</option>
+    <option value="high">High — Super Mutants or Gunners</option>
+    <option value="extreme">Extreme — Deathclaw or Glowing enemies</option>
+  </select>
+</div>
+<div class="form-group">
+  <label class="form-label" for="resources">RESOURCES FOUND</label>
+  <input class="form-input" type="text" id="resources" name="resources" placeholder="e.g. Caps, ammo, scrap metal">
+</div>
+<div class="form-group">
+  <label class="form-label" for="notes">FIELD NOTES</label>
+  <textarea class="form-input" id="notes" name="notes" rows="4" placeholder="Describe what you observed..." style="resize:vertical;"></textarea>
+</div>
+<button class="submit-btn" type="submit">SUBMIT REPORT</button>
+</form>
+</section>
+
+<aside class="panel">
+<h3>System Notes</h3>
+<p>Access restricted to authorized personnel.</p>
+<p style="margin-top:10px;font-size:.9em;color:var(--muted);">Last updated: 2277.10.23</p>
+<p style="font-size:.9em;color:var(--muted);">Terminal uptime: 847 days</p>
+<h3 style="margin-top:16px;">Alert Status</h3>
+<p style="color:#ff4444;font-weight:700;">&#9888; RAIDER ACTIVITY DETECTED</p>
+<p style="font-size:.9em;color:var(--muted);margin-top:6px;">Raider activity detected near the Vault. Stay alert.</p>
+</aside>
 </main>
 
 <footer class="footer">
-    <div>© 2026 The Vault</div>
-    <div>
-        <a href="#">Contact</a> |
-        <a href="#">Privacy Policy</a> |
-        <a href="#">Terms of Use</a>
-    </div>
-    <div>Jacob German</div>
+<div>&copy; 2026 The Vault</div>
+<div>Jacob German</div>
 </footer>
 
 </div>

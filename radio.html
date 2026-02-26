@@ -4,6 +4,8 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Radio | The Vault</title>
+<meta name="description" content="Tune in to Vault Radio — classic Fallout-inspired wasteland broadcasts and ambient music.">
+<meta name="keywords" content="Fallout radio, wasteland music, Vault radio, Diamond City Radio, Galaxy News Radio">
 <link rel="stylesheet" href="styles.css">
 
 <style>
@@ -134,22 +136,16 @@
       </div>
     </header>
 
-    <main class="main">
+    <main style="padding:18px;display:block;">
 
       <section class="panel">
         <h3>Vault Radio Broadcast</h3>
-        <div class="sub"></div>
-
-        <p>
-          Tune in while you browse. This radio autoplays on this page and loops.
-        </p>
+        <p style="margin-bottom:14px;">Tune in while you browse the wasteland database. This radio autoplays on this page and loops continuously. Adjust the volume or pause at any time using the controls below.</p>
 
         <div class="radioControls">
           <div class="radioRow">
             <span class="radioLabel">RADIO</span>
-
             <button class="btn" id="toggleBtn" type="button">PAUSE</button>
-
             <div class="volWrap">
               <label for="vol" class="radioLabel" style="font-size:.9em;">VOLUME</label>
               <input class="vol" id="vol" type="range" min="0" max="100" value="35" />
@@ -161,29 +157,22 @@
             <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
             <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
           </div>
-          <small style="display:block;margin-top:8px;color:rgba(230,242,234,.85);">
-          </small>
         </div>
 
-        <div class="placeholder" style="margin-top:12px;">
-          <strong>IMAGE PLACEHOLDER:</strong> Radio station concept art goes here later.
-        </div>
-
-        <ul class="list">
-          <li>Classic Fallout-inspired tracks</li>
-          <li>Vault-Tec emergency broadcasts</li>
-          <li>Wasteland ambience</li>
+        <ul class="list" style="margin-top:18px;">
+          <li>Classic Fallout-inspired tracks from across the wasteland</li>
+          <li>Vault-Tec emergency broadcasts and pre-war radio hits</li>
+          <li>Ambient wasteland soundscapes and survival frequencies</li>
         </ul>
+
+        <p style="margin-top:18px;font-size:.88rem;color:var(--muted);border-top:1px solid var(--border);padding-top:12px;">
+          Music streamed via YouTube. Wasteland broadcast playlist curated from the 
+          <strong style="color:var(--secondary);">Fallout Music &amp; Ambience</strong> channel on YouTube 
+          (<a href="https://www.youtube.com" target="_blank" rel="noopener" style="color:var(--accent);">youtube.com</a>). 
+          All music rights belong to their respective owners — Bethesda Game Studios / ZeniMax Media. 
+          This fanpage is non-commercial and not affiliated with Bethesda.
+        </p>
       </section>
-
-      <aside class="panel">
-        <h3>Now Playing</h3>
-        <p><strong></strong> Wasteland Broadcast (YouTube)</p>
-
-        <div class="placeholder">
-          <strong>IMAGE PLACEHOLDER:</strong> Album art or radio device image
-        </div>
-      </aside>
 
     </main>
 
