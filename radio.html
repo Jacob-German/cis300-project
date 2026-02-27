@@ -1,131 +1,108 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Radio | The Vault</title>
-<meta name="description" content="Tune in to Vault Radio — classic Fallout-inspired wasteland broadcasts and ambient music.">
-<meta name="keywords" content="Fallout radio, wasteland music, Vault radio, Diamond City Radio, Galaxy News Radio">
-<link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Radio | The Vault</title>
+  <meta name="description" content="Tune in to the Vault radio broadcast — classic wasteland music and emergency frequencies from across the Capital Wasteland.">
+  <meta name="keywords" content="Fallout radio, Galaxy News Radio, wasteland music, Three Dog, Vault broadcast">
+  <link rel="stylesheet" href="styles.css" />
 
-<style>
-  /* --- RADIO UI (page-local styles so you don't have to hunt in CSS) --- */
-  .radioControls {
-    margin-top: 12px;
-    padding: 12px;
-    border: 2px solid #19ff19;
-    border-radius: 6px;
-    background: rgba(0,0,0,.55);
-  }
+  <style>
+    .radioControls {
+      margin-top: 12px;
+      padding: 12px;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      background: rgba(0,0,0,.55);
+    }
+    .radioRow {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .radioLabel {
+      font-weight: 700;
+      letter-spacing: .08em;
+      color: var(--primary);
+    }
+    .volWrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      min-width: 220px;
+    }
+    input[type="range"].vol {
+      width: 260px;
+      max-width: 100%;
+      accent-color: var(--primary);
+    }
+    .btn {
+      border: 2px solid var(--border);
+      background: rgba(6,16,8,.45);
+      color: var(--primary);
+      padding: 8px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 700;
+      letter-spacing: .06em;
+      font-family: inherit;
+    }
+    .btn:hover { filter: brightness(1.2); }
 
-  .radioRow {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    flex-wrap: wrap;
-  }
+    .viz {
+      margin-top: 10px;
+      display: flex;
+      gap: 6px;
+      align-items: flex-end;
+      height: 42px;
+      padding: 10px 12px;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      background: rgba(0,0,0,.45);
+    }
+    .bar {
+      width: 10px;
+      height: 10px;
+      background: var(--primary);
+      border-radius: 2px;
+      animation: bounce 900ms ease-in-out infinite;
+      transform-origin: bottom;
+      opacity: .9;
+    }
+    .bar:nth-child(2)  { animation-delay: 120ms; }
+    .bar:nth-child(3)  { animation-delay: 240ms; }
+    .bar:nth-child(4)  { animation-delay: 360ms; }
+    .bar:nth-child(5)  { animation-delay: 480ms; }
+    .bar:nth-child(6)  { animation-delay: 600ms; }
+    .bar:nth-child(7)  { animation-delay: 720ms; }
+    .bar:nth-child(8)  { animation-delay: 840ms; }
+    .bar:nth-child(9)  { animation-delay: 960ms; }
+    .bar:nth-child(10) { animation-delay: 1080ms; }
 
-  .radioLabel {
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    color: #c9ffd0;
-  }
+    .viz.paused .bar { animation-play-state: paused; opacity: .35; }
 
-  .volWrap {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex: 1;
-    min-width: 220px;
-  }
+    @keyframes bounce {
+      0%, 100% { transform: scaleY(.35); }
+      50%       { transform: scaleY(1.8); }
+    }
+  </style>
 
-  input[type="range"].vol {
-    width: 260px;
-    max-width: 100%;
-    accent-color: #19ff19;
-  }
-
-  .btn {
-    border: 2px solid #19ff19;
-    background: transparent;
-    color: #c9ffd0;
-    padding: 8px 10px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-  }
-  .btn:hover { filter: brightness(1.2); }
-
-  /* Faux “visualizer” (animated bars) */
-  .viz {
-    margin-top: 10px;
-    display: flex;
-    gap: 6px;
-    align-items: flex-end;
-    height: 42px;
-    padding: 10px 12px;
-    border: 2px solid #19ff19;
-    border-radius: 6px;
-    background: rgba(0,0,0,.45);
-  }
-
-  .bar {
-    width: 10px;
-    height: 10px;
-    background: #19ff19;
-    border-radius: 2px;
-    animation: bounce 900ms ease-in-out infinite;
-    transform-origin: bottom;
-    opacity: 0.9;
-  }
-
-  .bar:nth-child(2)  { animation-delay: 120ms; }
-  .bar:nth-child(3)  { animation-delay: 240ms; }
-  .bar:nth-child(4)  { animation-delay: 360ms; }
-  .bar:nth-child(5)  { animation-delay: 480ms; }
-  .bar:nth-child(6)  { animation-delay: 600ms; }
-  .bar:nth-child(7)  { animation-delay: 720ms; }
-  .bar:nth-child(8)  { animation-delay: 840ms; }
-  .bar:nth-child(9)  { animation-delay: 960ms; }
-  .bar:nth-child(10) { animation-delay: 1080ms; }
-
-  @keyframes bounce {
-    0%, 100% { transform: scaleY(0.3); }
-    50%      { transform: scaleY(2.4); }
-  }
-
-  .viz.paused .bar {
-    animation-play-state: paused;
-    opacity: 0.35;
-  }
-
-  /* Hide the YouTube player visually but keep it functional */
-  #player {
-    position: absolute;
-    left: -9999px;
-    top: -9999px;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-  }
-</style>
+  <!-- YouTube API loaded in head so it's ready before body scripts fire -->
+  <script src="https://www.youtube.com/iframe_api"></script>
 </head>
 
 <body>
+  <div class="wrapper">
+    <div class="frame">
 
-<div class="wrapper">
-  <div class="frame">
-
-    <header class="header">
-      <div class="brand">
-        <div class="small"></div>
-        <h1>THE VAULT</h1>
-        <h2>A Fallout Fanpage</h2>
-      </div>
-
-      <div class="navWrap">
-        <div class="navTitle">Main Navigation</div>
+      <header class="header">
+        <div class="brand">
+          <h1>THE VAULT</h1>
+          <h2>A Fallout Fanpage</h2>
+        </div>
         <nav class="nav">
           <a href="index.html">HOME</a>
           <a href="inv.html">INV</a>
@@ -133,149 +110,144 @@
           <a href="map.html">MAP</a>
           <a href="radio.html" aria-current="page">RADIO</a>
         </nav>
-      </div>
-    </header>
+      </header>
 
-    <main style="padding:18px;display:block;">
+      <main class="main">
+        <section class="panel">
+          <h3>Vault Radio Broadcast</h3>
+          <p class="sub">Signal acquired. Tuning to wasteland frequency...</p>
 
-      <section class="panel">
-        <h3>Vault Radio Broadcast</h3>
-        <p style="margin-bottom:14px;">Tune in while you browse the wasteland database. This radio autoplays on this page and loops continuously. Adjust the volume or pause at any time using the controls below.</p>
+          <p>Out here in the wasteland, a good radio signal is worth more than a full magazine. The Vault terminal is locked onto a continuous broadcast of classic pre-war and post-war tracks to keep morale up while you review your data logs and plan your next move. Turn it up. The Deathclaws can hear it either way.</p>
 
-        <div class="radioControls">
-          <div class="radioRow">
-            <span class="radioLabel">RADIO</span>
-            <button class="btn" id="toggleBtn" type="button">PAUSE</button>
-            <div class="volWrap">
-              <label for="vol" class="radioLabel" style="font-size:.9em;">VOLUME</label>
-              <input class="vol" id="vol" type="range" min="0" max="100" value="35" />
-              <span id="volNum" class="radioLabel" style="font-size:.9em;">35</span>
+          <div class="radioControls">
+            <div class="radioRow">
+              <span class="radioLabel">ON AIR</span>
+              <button class="btn" id="toggleBtn" type="button">PAUSE</button>
+              <div class="volWrap">
+                <label for="vol" class="radioLabel" style="font-size:.9em;">VOL</label>
+                <input class="vol" id="vol" type="range" min="0" max="100" value="35" />
+                <span id="volNum" class="radioLabel" style="font-size:.9em;">35</span>
+              </div>
             </div>
+
+            <div class="viz" id="viz" aria-label="Radio signal visualizer">
+              <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+              <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+              <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+              <div class="bar"></div>
+            </div>
+
+            <p style="margin-top:10px;font-size:.9em;color:var(--muted);">Vault-Tec Radio Signal — Transmitting from the Capital Wasteland</p>
           </div>
+        </section>
 
-          <div class="viz" id="viz" aria-label="radio visualizer">
-            <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
-            <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
-          </div>
-        </div>
+        <aside class="panel">
+          <h3>Now Playing</h3>
+          <p style="color:var(--primary);font-weight:700;">Wasteland Broadcast Mix</p>
+          <p style="font-size:.9em;color:var(--muted);margin-top:6px;">A continuous stream of Fallout-inspired music curated for Vault Dwellers. Featuring ambient wasteland scores and classic post-apocalyptic tracks.</p>
 
-        <ul class="list" style="margin-top:18px;">
-          <li>Classic Fallout-inspired tracks from across the wasteland</li>
-          <li>Vault-Tec emergency broadcasts and pre-war radio hits</li>
-          <li>Ambient wasteland soundscapes and survival frequencies</li>
-        </ul>
+          <h3 style="margin-top:16px;">Signal Status</h3>
+          <p style="color:#39FF14;font-weight:700;">STRONG SIGNAL</p>
+          <p style="font-size:.9em;color:var(--muted);margin-top:6px;">Broadcast sourced via wasteland relay. Channel courtesy of the YouTube Wasteland Network.</p>
 
-        <p style="margin-top:18px;font-size:.88rem;color:var(--muted);border-top:1px solid var(--border);padding-top:12px;">
-          Music streamed via YouTube. Wasteland broadcast playlist curated from the 
-          <strong style="color:var(--secondary);">Fallout Music &amp; Ambience</strong> channel on YouTube 
-          (<a href="https://www.youtube.com" target="_blank" rel="noopener" style="color:var(--accent);">youtube.com</a>). 
-          All music rights belong to their respective owners — Bethesda Game Studios / ZeniMax Media. 
-          This fanpage is non-commercial and not affiliated with Bethesda.
-        </p>
-      </section>
+          <h3 style="margin-top:16px;">Broadcast Notes</h3>
+          <p style="font-size:.9em;color:var(--muted);">Keep the radio on while you explore the DATA logs or review your MAP. The music loops automatically. Adjust volume to your preference.</p>
+        </aside>
+      </main>
 
-    </main>
+      <footer class="footer">
+        <div>&copy; 2026 The Vault</div>
+        <div>Jacob German</div>
+      </footer>
 
-    <footer class="footer">
-      <div>© 2026 The Vault</div>
-      <div>
-        <a href="#">Contact</a> |
-        <a href="#">Privacy Policy</a> |
-        <a href="#">Terms of Use</a> |
-        <a href="#">Social Media</a>
-      </div>
-      <div>Jacob German</div>
-    </footer>
-
+    </div>
   </div>
-</div>
 
-<!-- YouTube Player (hidden) -->
-<div id="player" aria-hidden="true"></div>
+  <!-- Hidden YouTube player target -->
+  <div id="player" style="width:0;height:0;overflow:hidden;position:absolute;"></div>
 
-<script>
-  // Load YouTube IFrame API
-  const tag = document.createElement('script');
-  tag.src = "https://www.youtube.com/iframe_api";
-  document.head.appendChild(tag);
+  <!-- Page swap sound -->
+  <audio id="pageSound" src="Page-Swap-Pipboy.mp3" preload="auto"></audio>
 
-  let player;
-  let isPlaying = true;
+  <script>
+    // Nav page-swap sound
+    const pageSound = document.getElementById("pageSound");
+    document.querySelectorAll(".nav a").forEach(link => {
+      link.addEventListener("click", e => {
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+        e.preventDefault();
+        if (pageSound) {
+          pageSound.currentTime = 0;
+          pageSound.play().catch(() => {});
+        }
+        const target = link.getAttribute("href");
+        setTimeout(() => { window.location.href = target; }, 700);
+      });
+    });
 
-  const VIDEO_ID = "6qQ0TMK7ZuE";
-  const vol = document.getElementById("vol");
-  const volNum = document.getElementById("volNum");
-  const toggleBtn = document.getElementById("toggleBtn");
-  const viz = document.getElementById("viz");
+    // Radio controls
+    const vol       = document.getElementById("vol");
+    const volNum    = document.getElementById("volNum");
+    const toggleBtn = document.getElementById("toggleBtn");
+    const viz       = document.getElementById("viz");
 
-  function onYouTubeIframeAPIReady() {
-    player = new YT.Player('player', {
-      videoId: VIDEO_ID,
-      playerVars: {
-        autoplay: 1,
-        controls: 0,
-        disablekb: 1,
-        modestbranding: 1,
-        rel: 0,
-        loop: 1,
-        playlist: VIDEO_ID
-      },
-      events: {
-        onReady: (e) => {
-          // start at user-set volume
-          const v = Number(vol.value);
-          player.setVolume(v);
-          volNum.textContent = v;
+    let player;
+    let isPlaying = false;
+    const VIDEO_ID = "6qQ0TMK7ZuE";
 
-          // try to autoplay
-          player.playVideo();
+    // This must be a global function — YouTube API calls it by name
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player("player", {
+        videoId: VIDEO_ID,
+        playerVars: {
+          autoplay: 1,
+          controls: 0,
+          disablekb: 1,
+          modestbranding: 1,
+          rel: 0,
+          loop: 1,
+          playlist: VIDEO_ID
         },
-        onStateChange: (e) => {
-          // If paused/stopped, freeze bars
-          if (e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED) {
-            viz.classList.add("paused");
-            isPlaying = false;
-            toggleBtn.textContent = "PLAY";
-          }
-          if (e.data === YT.PlayerState.PLAYING) {
-            viz.classList.remove("paused");
-            isPlaying = true;
-            toggleBtn.textContent = "PAUSE";
+        events: {
+          onReady: function(e) {
+            player.mute();
+            player.playVideo();
+          },
+          onStateChange: function(e) {
+            if (e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED) {
+              viz.classList.add("paused");
+              isPlaying = false;
+              toggleBtn.textContent = "PLAY";
+            }
+            if (e.data === YT.PlayerState.PLAYING) {
+              viz.classList.remove("paused");
+              isPlaying = true;
+              toggleBtn.textContent = "PAUSE";
+              // Unmute and restore volume on first play
+              if (player.isMuted()) {
+                player.unMute();
+                player.setVolume(Number(vol.value));
+              }
+            }
           }
         }
+      });
+    }
+
+    vol.addEventListener("input", () => {
+      const v = Number(vol.value);
+      volNum.textContent = v;
+      if (player && typeof player.setVolume === "function") player.setVolume(v);
+    });
+
+    toggleBtn.addEventListener("click", () => {
+      if (!player) return;
+      if (isPlaying) {
+        player.pauseVideo();
+      } else {
+        player.playVideo();
       }
     });
-  }
-
-  // Volume slider
-  vol.addEventListener("input", () => {
-    const v = Number(vol.value);
-    volNum.textContent = v;
-    if (player && typeof player.setVolume === "function") {
-      player.setVolume(v);
-    }
-  });
-
-  // Play/Pause button
-  toggleBtn.addEventListener("click", () => {
-    if (!player) return;
-
-    if (isPlaying) {
-      player.pauseVideo();
-      viz.classList.add("paused");
-      toggleBtn.textContent = "PLAY";
-      isPlaying = false;
-    } else {
-      player.playVideo();
-      viz.classList.remove("paused");
-      toggleBtn.textContent = "PAUSE";
-      isPlaying = true;
-    }
-  });
-
-  // Make API callback global
-  window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
-</script>
-
+  </script>
 </body>
 </html>

@@ -1,158 +1,220 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Map | The Vault</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Explore Fallout wasteland maps — Fallout 3 Capital Wasteland, Fallout 4 Commonwealth, and Fallout New Vegas Mojave Desert.">
-<meta name="keywords" content="Fallout map, wasteland locations, Capital Wasteland, Commonwealth, Mojave, Diamond City, Vault 111">
-<link rel="stylesheet" href="styles.css">
-<style>
-.map-viewer {
-  position: relative;
-  width: 100%;
-  background: rgba(0,0,0,.5);
-  border: 2px solid var(--border);
-  border-radius: var(--radius);
-  overflow: hidden;
-  margin-top: 14px;
-}
-.map-viewer img {
-  width: 100%;
-  display: block;
-  max-height: 480px;
-  object-fit: contain;
-  background: #000;
-  transition: opacity .35s ease;
-}
-.map-viewer img.hidden { display: none; }
-.map-controls {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 14px;
-  background: rgba(0,0,0,.6);
-  border-top: 2px solid var(--border);
-}
-.map-btn {
-  background: rgba(57,255,20,.1);
-  border: 2px solid var(--border);
-  border-radius: 8px;
-  color: var(--primary);
-  padding: 8px 18px;
-  font-family: inherit;
-  font-size: .9rem;
-  font-weight: 700;
-  letter-spacing: .06em;
-  cursor: pointer;
-}
-.map-btn:hover { background: rgba(57,255,20,.22); }
-.map-label {
-  color: var(--primary);
-  font-weight: 700;
-  letter-spacing: .05em;
-  font-size: .95rem;
-  text-align: center;
-}
-.map-dots {
-  display: flex;
-  gap: 8px;
-  justify-content: center;
-  padding: 8px 0 4px;
-}
-.map-dot {
-  width: 10px; height: 10px;
-  border-radius: 50%;
-  border: 2px solid var(--border);
-  background: transparent;
-  cursor: pointer;
-  transition: background .2s;
-}
-.map-dot.active { background: var(--primary); }
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Map | The Vault</title>
+  <meta name="description" content="Explore interactive wasteland maps from Fallout 3, Fallout 4, and Fallout New Vegas. Cycle through the Capital Wasteland, the Commonwealth, and the Mojave Desert.">
+  <meta name="keywords" content="Fallout map, Capital Wasteland, Commonwealth, Mojave Desert, Fallout 3, Fallout 4, New Vegas, wasteland locations">
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    .hidden { display: none !important; }
+
+    .mapStage {
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      background: rgba(0,0,0,.25);
+      overflow: hidden;
+      padding: 10px;
+    }
+
+    .mapImg {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 10px;
+    }
+
+    .mapControls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 2px solid var(--border);
+    }
+
+    .btn {
+      border: 2px solid var(--border);
+      background: rgba(6,16,8,.45);
+      color: var(--primary);
+      padding: 8px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 700;
+      letter-spacing: .06em;
+    }
+
+    .btn:hover { filter: brightness(1.12); }
+
+    #mapLabel {
+      flex: 1;
+      text-align: center;
+      color: var(--primary);
+      font-weight: 700;
+      letter-spacing: .08em;
+      font-size: .9rem;
+      text-transform: uppercase;
+      user-select: none;
+    }
+
+    .dots {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      border: 2px solid var(--border);
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .dot.active {
+      background: var(--primary);
+      border-color: rgba(102,255,102,.75);
+    }
+  </style>
 </head>
+
 <body>
-<div class="wrapper">
-<div class="frame">
+  <div class="wrapper">
+    <div class="frame">
 
-<header class="header">
-<div class="brand">
-<h1>THE VAULT</h1>
-<h2>A Fallout Fanpage</h2>
-</div>
-<nav class="nav">
-<a href="index.html">HOME</a>
-<a href="inv.html">INV</a>
-<a href="data.html">DATA</a>
-<a href="map.html" aria-current="page">MAP</a>
-<a href="radio.html">RADIO</a>
-</nav>
-</header>
+      <header class="header">
+        <div class="brand">
+          <h1>THE VAULT</h1>
+          <h2>A Fallout Fanpage</h2>
+        </div>
 
-<main class="main">
-<section class="panel">
-<h3>Wasteland Maps</h3>
-<p>Navigate the ruins of three iconic Fallout regions. Click the arrows to cycle between the <strong>Capital Wasteland</strong> (Fallout 3), the <strong>Commonwealth</strong> (Fallout 4), and the <strong>Mojave Desert</strong> (Fallout: New Vegas). Study the terrain before venturing out — the wasteland shows no mercy to the unprepared.</p>
+        <div class="navWrap">
+          <div class="navTitle">Main Navigation</div>
+          <nav class="nav">
+            <a href="index.html">HOME</a>
+            <a href="inv.html">INV</a>
+            <a href="data.html">DATA</a>
+            <a href="map.html" aria-current="page">MAP</a>
+            <a href="radio.html">RADIO</a>
+          </nav>
+        </div>
+      </header>
 
-<div class="map-viewer" id="mapViewer">
-  <img src="Fallout3WorldMap(Clean).jpg" alt="Fallout 3 Capital Wasteland Map" id="map0">
-  <img src="Fallout-4-map.png" alt="Fallout 4 Commonwealth Map" id="map1" class="hidden">
-  <img src="fnvmap.png" alt="Fallout New Vegas Mojave Map" id="map2" class="hidden">
-  <div class="map-controls">
-    <button class="map-btn" id="prevBtn" onclick="changeMap(-1)">&#9664; PREV</button>
-    <span class="map-label" id="mapLabel">FALLOUT 3 — CAPITAL WASTELAND</span>
-    <button class="map-btn" id="nextBtn" onclick="changeMap(1)">NEXT &#9654;</button>
+      <main class="main">
+        <section class="panel">
+          <h3>Wasteland Map</h3>
+          <div class="sub">Cycle through major regions.</div>
+
+          <div class="mapStage">
+            <img class="mapImg" src="fnvmap.png" alt="Fallout: New Vegas map" />
+            <img class="mapImg hidden" src="Fallout-4-map.png" alt="Fallout 4 Commonwealth map" />
+            <img class="mapImg hidden" src="Fallout3WorldMap(Clean).jpg" alt="Fallout 3 Capital Wasteland map" />
+          </div>
+
+          <div class="mapControls">
+            <button class="btn" type="button" id="prevBtn">PREV</button>
+            <div id="mapLabel">FALLOUT: NEW VEGAS - MOJAVE DESERT</div>
+            <button class="btn" type="button" id="nextBtn">NEXT</button>
+          </div>
+
+          <div class="dots" role="tablist" aria-label="Map selector">
+            <button class="dot active" type="button" data-index="0" aria-label="Map 1"></button>
+            <button class="dot" type="button" data-index="1" aria-label="Map 2"></button>
+            <button class="dot" type="button" data-index="2" aria-label="Map 3"></button>
+          </div>
+        </section>
+
+        <aside class="panel">
+          <h3>Notes</h3>
+          <p style="color:var(--muted);font-size:.95rem;">
+            Use the arrows to switch maps. Dots jump directly to a specific region.
+          </p>
+          <ul class="list">
+            <li>Fallout 3: Capital Wasteland</li>
+            <li>Fallout 4: Commonwealth</li>
+            <li>Fallout: New Vegas: Mojave Desert</li>
+          </ul>
+        </aside>
+      </main>
+
+      <footer class="footer">
+        <div>&copy; 2026 The Vault</div>
+        <div>Jacob German</div>
+      </footer>
+
+    </div>
   </div>
-</div>
 
-<div class="map-dots">
-  <div class="map-dot active" onclick="goToMap(0)" id="dot0"></div>
-  <div class="map-dot" onclick="goToMap(1)" id="dot1"></div>
-  <div class="map-dot" onclick="goToMap(2)" id="dot2"></div>
-</div>
+  <audio id="pageSound" src="Page-Swap-Pipboy.mp3" preload="auto"></audio>
 
-</section>
+  <script>
+    const sound = document.getElementById("pageSound");
 
-<aside class="panel">
-<h3>Locations</h3>
-<p><strong style="color:var(--primary);">Fallout 3</strong><br>Vault 111 &bull; Megaton &bull; Rivet City &bull; The Capitol &bull; Tenpenny Tower</p>
-<p style="margin-top:12px;"><strong style="color:var(--primary);">Fallout 4</strong><br>Diamond City &bull; Sanctuary Hills &bull; The Institute &bull; Goodneighbor &bull; Nuka-World</p>
-<p style="margin-top:12px;"><strong style="color:var(--primary);">New Vegas</strong><br>Freeside &bull; The Strip &bull; Goodsprings &bull; Boulder City &bull; Hoover Dam</p>
-<p style="margin-top:16px;font-size:.9em;color:var(--muted);">Fast travel unlocked: 3 locations</p>
-<h3 style="margin-top:16px;">Current Quest</h3>
-<p style="font-size:.9em;">Out of Time — Search for Shaun in the Commonwealth.</p>
-</aside>
-</main>
+    function playSound() {
+      if (!sound) return;
+      try {
+        sound.currentTime = 0;
+        sound.play();
+      } catch (e) {}
+    }
 
-<footer class="footer">
-<div>&copy; 2026 The Vault</div>
-<div>Jacob German</div>
-</footer>
+    document.querySelectorAll(".nav a").forEach(a => {
+      a.addEventListener("click", function (e) {
+        e.preventDefault();
+        playSound();
+        const target = this.getAttribute("href");
+        setTimeout(() => { window.location.href = target; }, 700);
+      });
+    });
 
-</div>
-</div>
+    const maps = [
+      { label: "FALLOUT: NEW VEGAS - MOJAVE DESERT" },
+      { label: "FALLOUT 4 - COMMONWEALTH" },
+      { label: "FALLOUT 3 - CAPITAL WASTELAND" }
+    ];
 
-<script>
-const maps = [
-  { id: 'map0', label: 'FALLOUT 3 \u2014 CAPITAL WASTELAND' },
-  { id: 'map1', label: 'FALLOUT 4 \u2014 THE COMMONWEALTH' },
-  { id: 'map2', label: 'FALLOUT: NEW VEGAS \u2014 MOJAVE DESERT' }
-];
-let current = 0;
+    const imgs = Array.from(document.querySelectorAll(".mapImg"));
+    const dots = Array.from(document.querySelectorAll(".dot"));
+    const mapLabel = document.getElementById("mapLabel");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
 
-function goToMap(index) {
-  document.getElementById(maps[current].id).classList.add('hidden');
-  document.getElementById('dot' + current).classList.remove('active');
-  current = index;
-  document.getElementById(maps[current].id).classList.remove('hidden');
-  document.getElementById('dot' + current).classList.add('active');
-  document.getElementById('mapLabel').textContent = maps[current].label;
-}
+    let idx = 0;
 
-function changeMap(dir) {
-  let next = (current + dir + maps.length) % maps.length;
-  goToMap(next);
-}
-</script>
+    function render() {
+      imgs.forEach((img, i) => img.classList.toggle("hidden", i !== idx));
+      dots.forEach((d, i) => d.classList.toggle("active", i === idx));
+      if (mapLabel) mapLabel.textContent = maps[idx].label;
+    }
+
+    function setIndex(newIndex) {
+      idx = (newIndex + imgs.length) % imgs.length;
+      render();
+    }
+
+    prevBtn.addEventListener("click", () => {
+      playSound();
+      setIndex(idx - 1);
+    });
+
+    nextBtn.addEventListener("click", () => {
+      playSound();
+      setIndex(idx + 1);
+    });
+
+    dots.forEach(d => {
+      d.addEventListener("click", () => {
+        playSound();
+        setIndex(Number(d.dataset.index));
+      });
+    });
+
+    render();
+  </script>
 </body>
 </html>

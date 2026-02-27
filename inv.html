@@ -135,5 +135,27 @@
 
 </div>
 </div>
+<!-- Pip-Boy page swap sound -->
+<audio id="pageSound" src="Page-Swap-Pipboy.mp3"></audio>
+
+<script>
+const links = document.querySelectorAll(".nav a");
+const sound = document.getElementById("pageSound");
+
+links.forEach(link => {
+  link.addEventListener("click", function(e) {
+    e.preventDefault();
+
+    sound.currentTime = 0;
+    sound.play();
+
+    const target = this.getAttribute("href");
+
+    setTimeout(() => {
+      window.location.href = target;
+    }, 700);
+  });
+});
+</script>
 </body>
 </html>
