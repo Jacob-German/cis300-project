@@ -7,6 +7,14 @@
 <meta name="description" content="The Vault — a Fallout fan page featuring wasteland data logs, inventory, maps, and radio broadcasts from the post-apocalyptic world of Fallout.">
 <meta name="keywords" content="Fallout, Vault, wasteland, fan page, Fallout 3, Fallout 4, New Vegas, post-apocalyptic">
 <link rel="stylesheet" href="styles.css">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WS4S722YG3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-WS4S722YG3');
+  </script>
 </head>
 
 <body>
@@ -40,7 +48,7 @@
 <h3>Welcome to The Vault</h3>
 <p>Welcome to The Vault, your personal Pip-Boy terminal for all things Fallout. This fanpage is dedicated to the iconic post-apocalyptic RPG series developed by Bethesda Game Studios. Whether you are a seasoned Vault Dweller or just emerging from Vault 111 for the first time, this site has everything you need to navigate the wasteland.</p>
 <p style="margin-top:10px;">Use the navigation above to explore your <strong>Inventory</strong>, review <strong>Vault Data Logs</strong>, study the <strong>Wasteland Map</strong>, or tune in to the <strong>Radio</strong> for some classic wasteland music.</p>
-<p style="margin-top:10px;">Have wasteland intelligence to share? <a href="mailto:jcgerma1@asu.edu" style="color:var(--accent);">Contact the Overseer</a> via secure terminal link.</p>
+<p style="margin-top:10px;">Have wasteland intelligence to share? <a href="/cdn-cgi/l/email-protection#730512061f0733071b160512061f075d101c1e" style="color:var(--accent);">Contact the Overseer</a> via secure terminal link.</p>
 <p style="margin-top:10px;">New to Fallout? Learn more on the official <a href="https://fallout.bethesda.net" target="_blank" rel="noopener" style="color:var(--accent);">Fallout website</a>.</p>
 </section>
 
@@ -56,14 +64,11 @@
 </main>
 
 <footer class="footer">
-<div>&copy; 2026 The Vault</div>
-<div>Jacob German</div>
-</footer>
-
-</div>
-</div>
-
+<div>© 2026 The Vault</div>
+<div>
+  <!-- Pip-Boy page swap sound -->
 <audio id="pageSound" src="Page-Swap-Pipboy.mp3"></audio>
+
 <script>
 const links = document.querySelectorAll(".nav a");
 const sound = document.getElementById("pageSound");
@@ -71,14 +76,20 @@ const sound = document.getElementById("pageSound");
 links.forEach(link => {
   link.addEventListener("click", function(e) {
     e.preventDefault();
+
     sound.currentTime = 0;
     sound.play();
+
     const target = this.getAttribute("href");
+
     setTimeout(() => {
       window.location.href = target;
     }, 700);
   });
 });
 </script>
-</body>
-</html>
+<a href="#">Contact</a> |
+<a href="#">Privacy Policy</a> |
+<a href="#">Terms of Use</a>
+</div>
+<div>Jacob German</div>

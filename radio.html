@@ -92,6 +92,14 @@
 
   <!-- YouTube API loaded in head so it's ready before body scripts fire -->
   <script src="https://www.youtube.com/iframe_api"></script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WS4S722YG3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-WS4S722YG3');
+  </script>
 </head>
 
 <body>
@@ -210,7 +218,7 @@
         },
         events: {
           onReady: function(e) {
-            player.mute();
+            player.setVolume(Number(vol.value));
             player.playVideo();
           },
           onStateChange: function(e) {
@@ -223,11 +231,6 @@
               viz.classList.remove("paused");
               isPlaying = true;
               toggleBtn.textContent = "PAUSE";
-              // Unmute and restore volume on first play
-              if (player.isMuted()) {
-                player.unMute();
-                player.setVolume(Number(vol.value));
-              }
             }
           }
         }
